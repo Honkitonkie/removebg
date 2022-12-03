@@ -18,6 +18,7 @@ fs.readdir(directoryPath, function (err, files) {
     let formData = new FormData();
     formData.append("size", "auto");
     formData.append("image_file", fs.createReadStream(inputPath), path.basename(inputPath));
+    formData.append("bg_color", "fff");
 
     axios({
       method: "post",

@@ -4,11 +4,15 @@ const FormData = require("form-data");
 const fs = require("fs");
 const path = require("path");
 
-const inputPath = "./laars.jpg";
+const inputPath = path.join(__dirname, "images", "laars.jpg");
 const formData = new FormData();
 formData.append("size", "auto");
 formData.append("image_file", fs.createReadStream(inputPath), path.basename(inputPath));
 formData.append("bg_color", "fff");
+// formData.append("position", "center");
+formData.append("type_level", "product");
+// formData.append("size", "full");
+// formData.append("scale", "100%");
 
 axios({
   method: "post",
