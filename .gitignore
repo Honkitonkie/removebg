@@ -1,0 +1,4 @@
+.env
+node_modules
+jpg.js
+package-lock.js

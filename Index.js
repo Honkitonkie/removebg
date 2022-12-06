@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 
 //joining path of directory
-const directoryPath = path.join(__dirname, "images");
+const directoryPath = path.join(__dirname, "afbeeldingen-origineel");
 fs.readdir(directoryPath, function (err, files) {
   if (err) {
     return console.log("Unable to scan directory: " + err);
@@ -14,11 +14,12 @@ fs.readdir(directoryPath, function (err, files) {
   //   console.log(__dirname);
   //listing all files using forEach
   files.forEach(function (file) {
-    let inputPath = path.join(`${__dirname}/images/${file}`);
+    let inputPath = path.join(`${__dirname}/afbeeldingen-origineel/${file}`);
     let formData = new FormData();
     formData.append("size", "auto");
     formData.append("image_file", fs.createReadStream(inputPath), path.basename(inputPath));
     formData.append("bg_color", "fff");
+    formData.append("position", "center");
 
     axios({
       method: "post",
@@ -33,7 +34,7 @@ fs.readdir(directoryPath, function (err, files) {
     })
       .then((response) => {
         if (response.status != 200) return console.error("Error:", response.status, response.statusText);
-        let outputName = path.join(`${__dirname}/output/${file}`);
+        let outputName = path.join(`${__dirname}/afbeeldingen-verwerkt/${file}`);
         fs.writeFileSync(outputName, response.data);
       })
       .catch((error) => {
